@@ -72,26 +72,73 @@ router.post('/signin', function (req, res) {
     }
 });
 
-router.route('/testcollection')
-    .delete(authController.isAuthenticated, function(req, res) {
-        console.log(req.body);
-        res = res.status(200);
-        if (req.get('Content-Type')) {
-            res = res.type(req.get('Content-Type'));
+router.route('/movies')
+    .get(function(req, res) {
+            console.log(req.body);
+            // set status code
+            res = res.status(200);
+            if (req.get('Content-Type')) {
+                res = res.type(req.get('Content-Type'));
+            }
+            var req_obj = getJSONObjectForMovieRequirement(req);
+            res.json({success: true, msg: 'get movies', headers: req_obj.headers, query: req.query, host: req_obj.key});
         }
-        var o = getJSONObjectForMovieRequirement(req);
-        res.json(o);
-    }
+    )
+    .post(function(req, res) {
+            console.log(req.body);
+            // set status code
+            res = res.status(200);
+            if (req.get('Content-Type')) {
+                res = res.type(req.get('Content-Type'));
+            }
+            var req_obj = getJSONObjectForMovieRequirement(req);
+            res.json({success: true, msg: 'post movies', headers: req_obj.headers, query: req.query, host: req_obj.key});
+        }
     )
     .put(authJwtController.isAuthenticated, function(req, res) {
-        console.log(req.body);
-        res = res.status(200);
-        if (req.get('Content-Type')) {
-            res = res.type(req.get('Content-Type'));
+            console.log(req.body);
+            // set status code
+            res = res.status(200);
+            if (req.get('Content-Type')) {
+                res = res.type(req.get('Content-Type'));
+            }
+            var req_obj = getJSONObjectForMovieRequirement(req);
+            res.json({success: true, msg: 'put movies', headers: req_obj.headers, query: req.query, host: req_obj.key});
         }
-        var o = getJSONObjectForMovieRequirement(req);
-        res.json(o);
-    }
+    )
+    .delete(authController.isAuthenticated, function(req, res) {
+            console.log(req.body);
+            // set status code
+            res = res.status(200);
+            if (req.get('Content-Type')) {
+                res = res.type(req.get('Content-Type'));
+            }
+            var req_obj = getJSONObjectForMovieRequirement(req);
+            res.json({success: true, msg: 'delete movies', headers: req_obj.headers, query: req.query, host: req_obj.key});
+        }
+    );
+
+
+router.route('/testcollection')
+    .delete(authController.isAuthenticated, function(req, res) {
+            console.log(req.body);
+            res = res.status(200);
+            if (req.get('Content-Type')) {
+                res = res.type(req.get('Content-Type'));
+            }
+            var o = getJSONObjectForMovieRequirement(req);
+            res.json(o);
+        }
+    )
+    .put(authJwtController.isAuthenticated, function(req, res) {
+            console.log(req.body);
+            res = res.status(200);
+            if (req.get('Content-Type')) {
+                res = res.type(req.get('Content-Type'));
+            }
+            var o = getJSONObjectForMovieRequirement(req);
+            res.json(o);
+        }
     );
 
 app.use('/', router);
